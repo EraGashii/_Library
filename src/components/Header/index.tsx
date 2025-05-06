@@ -7,6 +7,11 @@ import cs from "classnames";
 
 export function Header(){
     const router = useRouter();
+
+    const hiddenRoutes = ["/Client","/Client/profile"];
+    if (hiddenRoutes.includes(router.pathname)) {
+      return null;
+    }
     const items = [
       { name: "Home", pathName: "/" },
       { name: "About", pathName: "/about" },
