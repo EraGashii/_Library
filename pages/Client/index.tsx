@@ -28,7 +28,7 @@ export default function ClientDashboard() {
         </p>
 
         <button
-          onClick={() => signOut({ callbackUrl: "http://localhost:3000/login" })}
+         onClick={() => signOut({ callbackUrl: "/" })}
           className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
         >
           Çkyçu

@@ -5,9 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { connectMongo } from "lib/mongodb";
 import User from "models/user";
 import bcrypt from "bcryptjs";
-import type { User as NextAuthUser } from "next-auth";
-import type { AdapterUser } from "next-auth/adapters";
-import type { Account } from "next-auth";
+
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -22,7 +20,10 @@ export const authOptions: NextAuthOptions = {
         const user = await User.findOne({ email: credentials?.email });
         if (!user) return null;
 
-        const isValid = await bcrypt.compare(credentials!.password, user.password);
+        const isValid = await bcrypt.compare(
+          credentials!.password,
+          user.password
+        );
         if (!isValid) return null;
 
         return {
@@ -49,51 +50,63 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider === "google" || account?.provider === "facebook") {
-        await connectMongo();
-        const existingUser = await User.findOne({ email: user.email });
-
-        if (!existingUser) {
-          await User.create({
-            name: user.name,
-            email: user.email,
-            role: "user",
-            provider: account.provider,
-          });
+      try {
+        if (account?.provider === "google" || account?.provider === "facebook") {
+          await connectMongo();
+          let existingUser = await User.findOne({ email: user.email });
+    
+          if (!existingUser) {
+            existingUser = await User.create({
+              name: user.name,
+              email: user.email,
+              role: "user", // default role
+              provider: account.provider,
+            });
+          }
+    
+          // 👇 this is the key: make sure it's attached to the user object
+          (user as any).role = existingUser.role || "user";
         }
+    
+        return true;
+      } catch (error) {
+        console.error("SignIn Error:", error);
+        return false;
       }
-      return true;
     },
-
+    
+    
     async jwt({ token, user }) {
+      await connectMongo();
+    
       if (user) {
-        token.email = user.email;
-        token.role = (user as any).role || "user";
+        const existingUser = await User.findOne({ email: user.email });
+        token.role = existingUser?.role || "user";
       } else {
-        // If token already exists, fetch role from DB just in case
-        await connectMongo();
         const existingUser = await User.findOne({ email: token.email });
         token.role = existingUser?.role || "user";
       }
+    
       return token;
-    },
+    }
+,    
+    
+async session({ session, token }) {
+  session.user = {
+    ...session.user,
+    role: token.role || "user",
+  };
+  return session;
+},
+
     
 
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.email = token.email;
-        (session.user as any).role = token.role;
-      }
-      return session;
-    },
-
-    async redirect({ url, baseUrl }) {
-      // nëse url është i plotë dhe valid, përdore atë
-      if (url.startsWith(baseUrl)) return url;
-  
-      // përndryshe, ridrejto te /login
-      return baseUrl + "/login";
-    }
+    // No token here — keep it simple
+    // async redirect({ baseUrl }) {
+    //   return baseUrl;
+    // }
+    
+    
   }
 };
 

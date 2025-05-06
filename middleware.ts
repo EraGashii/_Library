@@ -16,7 +16,7 @@ export async function middleware(req: NextRequest) {
     "/contact",
     "/login",
     "/register",
-    "/api/auth"
+    "/api/auth",
   ];
 
   const isPublic = publicPaths.some((path) =>
@@ -37,5 +37,6 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/unauthorized", req.url));
   }
 
+ 
   return NextResponse.next();
 }
