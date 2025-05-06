@@ -88,13 +88,13 @@ export const authOptions: NextAuthOptions = {
     },
 
     async redirect({ url, baseUrl }) {
-      // Always send Google or Facebook logins to /client
-    
-        return `${baseUrl}/client`;
-      
-      // return baseUrl; // Default to homepage
-    },
-  },
+      // nëse url është i plotë dhe valid, përdore atë
+      if (url.startsWith(baseUrl)) return url;
+  
+      // përndryshe, ridrejto te /login
+      return baseUrl + "/login";
+    }
+  }
 };
 
 export default NextAuth(authOptions);
