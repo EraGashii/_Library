@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Logo from "@/assets/icons/logo.svg";
+import Logo from "@/assets/icons/logo1.svg";
 import cs from "classnames";
 
 

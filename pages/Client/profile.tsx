@@ -1,24 +1,31 @@
 import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaTelegram, FaEdit } from "react-icons/fa";
 
-export default function ProfilePage() {
-  const { data: session } = useSession();
-  const name = session?.user?.name || "Era Gashi";
+export default function AdminDashboard() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const name = session?.user?.name || "Admin";
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/login");
+    }
+  }, [status]);
+
+  if (status === "loading") return <p>Loading...</p>;
 
   return (
     <div className="flex min-h-screen bg-[#f4f6fc] text-gray-800">
-      {/* Sidebar */}
+      {/* Admin Sidebar */}
       <aside className="w-64 bg-gray-900 text-white flex flex-col py-6 px-4">
-
-        <h2 className="text-2xl font-bold mb-8">📚 Bookstore</h2>
+        <h2 className="text-2xl font-bold mb-8">📚 Admin Panel</h2>
         <nav className="flex flex-col gap-4">
-          <a href="/Client" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">🏠 Dashboard</a>
-          <a href="#" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">📚 Browse Books</a>
-          <a href="#" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">❤️ Wishlist</a>
-          <a href="#" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">🛒 Shopping List</a>
-          <a className="bg-pink-600 px-4 py-2 rounded text-white">👤 My Profile</a>
-          <a href="#" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">🧾 Orders</a>
-          <a href="#" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">📞 Contact Support</a>
+          <a href="/admin" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">🏠 Dashboard</a>
+          <a href="/admin/users" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">👥 Përdoruesit</a>
+          <a href="/admin/books" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">📘 Book Register</a>
+          <a className="bg-pink-600 px-4 py-2 rounded text-white">👤 Profili</a>
         </nav>
         <button
           onClick={() => signOut({ callbackUrl: "/" })}
@@ -33,11 +40,10 @@ export default function ProfilePage() {
 
       {/* Main Content */}
       <main className="flex-1 p-10">
-        {/* Welcome Box */}
         <div className="bg-white rounded-xl shadow-md p-6 mb-10 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold">Welcome back, {name}!</h1>
-            <p className="text-gray-500 mt-1">Thank you for being our customer. You're the best! 📚💖</p>
+            <h1 className="text-2xl font-bold">Mirësevini, {name}!</h1>
+            <p className="text-gray-500 mt-1">Ju jeni kyçur si administrator. 🎓</p>
           </div>
           <img
             src="/books-banner.png"
@@ -46,7 +52,7 @@ export default function ProfilePage() {
           />
         </div>
 
-        {/* Profile Card */}
+        {/* Admin Profile Card */}
         <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col lg:flex-row gap-10 mb-10">
           {/* Avatar */}
           <div className="w-40 h-40 bg-purple-100 rounded-full flex items-center justify-center text-4xl font-bold text-purple-700 border-4 border-purple-400">
@@ -64,25 +70,26 @@ export default function ProfilePage() {
                 <FaEdit size={20} />
               </button>
             </div>
-            <p>📅 Member since: <strong>24 Nëntor 2022</strong></p>
-            <p>📍 Location: <strong>Prishtina, Kosovë</strong></p>
-            <p>🎂 Birthday: <strong>08.04.1999</strong></p>
+            <p>📅 U anëtarësua më: <strong>24 Nëntor 2022</strong></p>
+            <p>📍 Lokacioni: <strong>Prishtinë, Kosovë</strong></p>
+            <p>🎂 Datëlindja: <strong>08.04.1999</strong></p>
             <p>📧 Email: <strong>{session?.user?.email}</strong></p>
-            <p>📞 Phone: <strong>+383 44 123 456</strong></p>
+            <p>🛡️ Roli: <strong>{(session?.user as any)?.role}</strong></p>
+            <p>📞 Tel: <strong>+383 44 123 456</strong></p>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mt-6 text-center">
               <div>
-                <p className="text-lg font-bold text-[#382f5d]">32</p>
-                <p className="text-sm text-gray-600">Books Purchased</p>
+                <p className="text-lg font-bold text-[#382f5d]">100+</p>
+                <p className="text-sm text-gray-600">Libra të shtuar</p>
               </div>
               <div>
-                <p className="text-lg font-bold text-[#382f5d]">12</p>
-                <p className="text-sm text-gray-600">In Wishlist</p>
+                <p className="text-lg font-bold text-[#382f5d]">30</p>
+                <p className="text-sm text-gray-600">Usera aktivë</p>
               </div>
               <div>
-                <p className="text-lg font-bold text-[#382f5d]">8</p>
-                <p className="text-sm text-gray-600">Reviews Written</p>
+                <p className="text-lg font-bold text-[#382f5d]">5</p>
+                <p className="text-sm text-gray-600">Raporte</p>
               </div>
             </div>
 

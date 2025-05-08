@@ -16,7 +16,7 @@ export interface Post {
 
 export default function Home() {
   const { data: intitalPosts, loading } = useFetch<Post[]>(
-    "https://jsonplaceholder.typicode.com/posts"
+    ""
   );
   const [posts, setPosts] = useState<Post[] | null>(null);
 
