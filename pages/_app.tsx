@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const url = pageProps.url ?? "https://my-domain.com";
 
   // Lista e faqeve ku nuk duam layout-in (navbar-in)
-  const noLayoutRoutes = ["/admin", "/client"];
+  const noLayoutRoutes = ["/admin", "/client", "/Client/browsebooks"];
   const hideLayout = noLayoutRoutes.some((route) =>
     router.pathname.startsWith(route)
   );
