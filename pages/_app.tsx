@@ -2,6 +2,7 @@ import MainLayout from "@/components/MainLayout";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import { SessionProvider } from "next-auth/react";
 
@@ -21,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
+    <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
       <Head>
         <title>{Component.displayName ?? "My App"}</title>
         <meta
