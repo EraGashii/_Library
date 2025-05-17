@@ -1,18 +1,45 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+interface Book {
+  _id: string;
+  title: string;
+  author: string;
+  price: number;
+  description: string;
+  coverImage?: string;
+}
 
 export default function BrowseBooks() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const name = session?.user?.name || "User";
 
+  const [books, setBooks] = useState<Book[]>([]);
+
   useEffect(() => {
     if (status === "unauthenticated") {
       router.replace("/login");
     }
   }, [status]);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchBooks();
+    }
+  }, [status]);
+
+  const fetchBooks = async () => {
+    try {
+      const res = await fetch("/api/services/book");
+      const data = await res.json();
+      setBooks(data);
+    } catch (err) {
+      console.error("Failed to fetch books:", err);
+    }
+  };
 
   if (status === "loading") return <p>Loading...</p>;
 
@@ -45,24 +72,36 @@ export default function BrowseBooks() {
       <main className="flex-1 p-10">
         <h1 className="text-3xl font-bold mb-6">📚 Browse Books</h1>
 
-        {/* Book Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {/* Example book card - Replace with dynamic data later */}
-          {[1, 2, 3, 4, 5, 6].map((book) => (
-            <div key={book} className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition">
-              <img
-                src="/book-placeholder.jpg"
-                alt="Book Cover"
-                className="w-full h-48 object-cover rounded mb-4"
-              />
-              <h2 className="text-lg font-semibold">Book Title {book}</h2>
-              <p className="text-sm text-gray-600">Author Name</p>
-              <p className="mt-2 text-purple-600 font-bold">$14.99</p>
-              <button className="mt-3 w-full bg-blue-600 text-white py-1.5 rounded hover:bg-blue-700 transition">
-                Add to Cart
-              </button>
-            </div>
-          ))}
+          {books.length === 0 ? (
+            <p className="text-center col-span-full text-gray-500">No books available.</p>
+          ) : (
+            books.map((book) => (
+              <div
+                key={book._id}
+                className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all overflow-hidden flex flex-col"
+              >
+<div className="w-full aspect-[3/4] bg-white rounded-t-lg overflow-hidden flex items-center justify-center">
+  <img
+    src={book.coverImage}
+    alt={book.title}
+    className="max-w-full max-h-full object-contain"
+  />
+</div>
+
+                <div className="p-4 flex flex-col flex-1 justify-between">
+                  <div>
+                    <h2 className="text-base font-semibold text-gray-800 truncate">{book.title}</h2>
+                    <p className="text-sm text-gray-500">👤 {book.author}</p>
+                    <p className="text-sm text-gray-700 font-semibold mt-1">💶 € {book.price.toFixed(2)}</p>
+                  </div>
+                  <button className="mt-4 bg-blue-600 text-white py-1 rounded hover:bg-blue-700 transition">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </main>
     </div>

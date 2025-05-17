@@ -25,10 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
       <Head>
         <title>{Component.displayName ?? "My App"}</title>
-        <meta
-          name="viewport"
-          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device"
-        />
+       <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
         {process.env.NODE_ENV === "production" && (
           <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
         )}

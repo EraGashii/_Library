@@ -45,8 +45,8 @@ export default function Blogs() {
   };
 
   return (
-    <div className="pt-12 bg-[#e7e5df] text-[#171717]">
-      <div className="flex flex-col items-center justify-center min-h-screen gap-y-20">
+    <div className="pt-12 bg-gradient-to-br from-[#e4e8ed] to-[#cfd8e4] text-[#171717] min-h-screen">
+      <div className="flex flex-col items-center justify-center gap-y-20">
         {blogsLoading ? (
           <CircularProgress />
         ) : (
@@ -59,25 +59,25 @@ export default function Blogs() {
                 blogsData.map((post: Blog) => (
                   <motion.section
                     key={post._id}
-                    className="w-96 bg-white p-6 rounded-xl shadow-md text-center"
-                    initial={{ scale: 0.8 }}
+                    className="w-96 bg-white p-6 rounded-3xl shadow-xl text-center border border-gray-200 hover:shadow-2xl transition"
+                    initial={{ scale: 0.9 }}
                     animate={{ scale: 1 }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.4 }}
                   >
-                    <h2 className="text-3xl font-serif font-bold mb-4 text-[#526d88] uppercase">
+                    <h2 className="text-2xl font-bold mb-4 text-[#526d88] uppercase tracking-wide">
                       {post.title}
                     </h2>
-                    <p className="text-gray-700 mb-6">{post.body}</p>
+                    <p className="text-gray-600 mb-6">{post.body}</p>
                     <div className="mb-4">
                       <Link href={`/update/blog/${post._id}`}>
-                        <button className="px-6 py-2 bg-[#bdbab0] hover:bg-[#a6a397] text-white rounded-xl transition">
+                        <button className="px-5 py-2 bg-[#526d88] hover:bg-[#42546f] text-white rounded-full shadow transition">
                           Përditëso
                         </button>
                       </Link>
                     </div>
                     <button
                       onClick={() => handleDeleteBlog(post._id!)}
-                      className="px-6 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
+                      className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full shadow transition"
                     >
                       Fshij Postimin
                     </button>
@@ -91,15 +91,14 @@ export default function Blogs() {
             </div>
             <div className="text-center mt-10">
               <Link href="/create/blog">
-                <button className="px-6 py-2 bg-[#bdbab0] hover:bg-[#a6a397] text-white rounded-xl transition">
-                  Krijo blog
+                <button className="px-6 py-2 bg-[#526d88] hover:bg-[#42546f] text-white rounded-full shadow-md transition">
+                  + Krijo Blog të Ri
                 </button>
               </Link>
             </div>
           </div>
         )}
 
-        {/* SSG */}
         <BlogSection
           title="Static Site Generation (SSG)"
           posts={posts}
@@ -107,8 +106,6 @@ export default function Blogs() {
           hrefBase="/blogs/ssg/"
           onDelete={handleDelete}
         />
-
-        {/* SSR */}
         <BlogSection
           title="Server Side Rendering (SSR)"
           posts={posts}
@@ -116,8 +113,6 @@ export default function Blogs() {
           hrefBase="/blogs/ssr/"
           onDelete={handleDelete}
         />
-
-        {/* ISR */}
         <BlogSection
           title="Incremental Static Regeneration (ISR)"
           posts={posts}
@@ -134,8 +129,8 @@ function BlogSection({ title, posts, loading, hrefBase, onDelete }: any) {
   return loading ? (
     <CircularProgress />
   ) : (
-    <div className="bg-[#f8f5e4] w-full px-4 py-16">
-      <h1 className="text-4xl font-serif font-bold text-center text-[#526d88] pb-10">
+    <div className="bg-[#e7ecf2] w-full px-4 py-16">
+      <h1 className="text-4xl font-bold text-center text-[#526d88] pb-10">
         Shfaqja e Blogut në Single Page me {title}
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
@@ -143,24 +138,24 @@ function BlogSection({ title, posts, loading, hrefBase, onDelete }: any) {
           posts.slice(0, 3).map((post: Post) => (
             <motion.section
               key={post.id}
-              className="bg-white p-8 rounded-xl text-center shadow w-full max-w-sm"
-              initial={{ scale: 0.8 }}
+              className="bg-white p-8 rounded-3xl text-center shadow w-full max-w-sm border border-gray-200 hover:shadow-lg transition"
+              initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 0.4 }}
             >
-              <h2 className="text-2xl font-serif font-bold mb-4 text-[#526d88] uppercase">
+              <h2 className="text-2xl font-bold mb-4 text-[#526d88] uppercase">
                 {post.title}
               </h2>
               <p className="text-gray-700 mb-6">{post.body}</p>
               <Link href={`${hrefBase}${post.id}`}>
-                <button className="px-6 py-2 bg-[#bdbab0] hover:bg-[#a6a397] text-white rounded-xl transition">
+                <button className="px-6 py-2 bg-[#526d88] hover:bg-[#42546f] text-white rounded-full transition">
                   Shiko Detajet
                 </button>
               </Link>
               <div className="mt-4">
                 <button
                   onClick={() => onDelete(post.id)}
-                  className="px-6 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
+                  className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full transition"
                 >
                   Fshij Postin
                 </button>

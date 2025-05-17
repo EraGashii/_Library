@@ -3,48 +3,59 @@ import { useRouter } from "next/router";
 import Logo from "@/assets/icons/logo1.svg";
 import cs from "classnames";
 
+export function Header() {
+  const router = useRouter();
 
+  const hiddenRoutes = ["/Client", "/Client/profile"];
+  if (hiddenRoutes.includes(router.pathname)) return null;
 
-export function Header(){
-    const router = useRouter();
+  const navItems = [
+    { name: "Home", pathName: "/" },
+    { name: "About", pathName: "/about" },
+    { name: "Contact Us", pathName: "/contact" },
+    { name: "Blogs", pathName: "/blogs" },
+    { name: "News", pathName: "/news" },
+  ];
 
-    const hiddenRoutes = ["/Client","/Client/profile"];
-    if (hiddenRoutes.includes(router.pathname)) {
-      return null;
-    }
-    const items = [
-      { name: "Home", pathName: "/" },
-      { name: "About", pathName: "/about" },
-      { name: "Contact Us", pathName: "/contact" },
-      { name: "Blogs", pathName: "/blogs"},
-      { name: "Log In", pathName: "/login" }
-    ];
+  return (
+    <div className="py-2 px-6 fixed z-50 bg-white border-b w-full shadow-sm">
+      <div className="container m-auto flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/">
+          <img className="h-10" src={Logo.src} alt="Logo" />
+        </Link>
 
-    return (
-        <div className="py-2 fixed z-50 bg-white border-b w-full transition-all duration-300">
-          <div className="container m-auto flex items-center">
-            <Link href="/">
-              <picture>
-                <img className="h-10" src={Logo.src} alt="Logo" />
-              </picture>
+        {/* Navigation Links */}
+        <div className="flex items-center space-x-8">
+          {navItems.map((item, index) => (
+            <Link
+              key={index}
+              href={item.pathName}
+              className={cs("text-gray-800 hover:text-blue-700 transition", {
+                "underline font-semibold": router.pathname === item.pathName,
+              })}
+            >
+              {item.name}
             </Link>
-            <div className="flex-1 flex gap-10 items-center justify-center">
-              {items.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.pathName}
-                  className={cs("text-black", {
-                    "underline font-semibold": router.pathname === item.pathName,
-                  })}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
-      );
-    };
 
+        {/* Login/Register Buttons */}
+        <div className="flex items-center space-x-4">
+          <Link href="/register">
+            <button className="px-5 py-2 bg-[#526d88] hover:bg-[#3b5168] text-white rounded-full shadow-md transition">
+              Regjistrohu
+            </button>
+          </Link>
+          <Link href="/login">
+            <button className="px-5 py-2 border border-[#526d88] text-[#526d88] hover:bg-[#e7e7e7] rounded-full transition">
+              Kyçu
+            </button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default Header;

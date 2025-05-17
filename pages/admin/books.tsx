@@ -187,81 +187,77 @@ export default function AdminBooksPage() {
             </button>
           </form>
 
-           {/* Book Grid */}
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-             {books.length === 0 ? (
-               <p className="text-center col-span-full text-gray-500">No books added yet.</p>
-             ) : (
-               books.map((book) => (
-                 <div
-                   key={book._id}
-                   className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition-all border border-gray-200 flex flex-col"
-                 >           
-                   {book.coverImage ? (
-                     <img
-                       src={book.coverImage}
-                       alt={book.title}
-                       className="h-48 w-full object-cover rounded-md mb-4"
-                     />
-                   ) : (
-                     <div className="h-48 w-full bg-gray-100 rounded-md flex items-center justify-center text-gray-400">
-                       No Image
-                     </div>
-                   )}
-                   <h2 className="text-lg font-semibold text-gray-800">{book.title}</h2>
-                   <p className="text-sm text-gray-600">👤 {book.author}</p>
-                   <p className="text-sm text-gray-600">💰 {book.price.toFixed(2)} €</p>
-                   <p className="text-sm text-gray-600 mt-1 line-clamp-3">
-                     {book.description || "No description."}
-                   </p>
-                   <div className="mt-auto flex justify-end gap-2 pt-4">
-                     {/* Optional Edit button — implement edit logic separately */}
-                     {/* <button
-                       onClick={() => handleEdit(book)}
-                                  className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                                >
-                       Edit
-                     </button> */}
+          {/* Book Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {books.length === 0 ? (
+              <p className="text-center col-span-full text-gray-500">No books added yet.</p>
+            ) : (
+              books.map((book) => (
+                <div
+                  key={book._id}
+                  className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition-all border border-gray-200 flex flex-col"
+                >
+                  {book.coverImage ? (
+                    <div className="w-full aspect-[3/4] overflow-hidden rounded-md mb-4">
+                      <img
+                        src={book.coverImage}
+                        alt={book.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-48 w-full bg-gray-100 rounded-md flex items-center justify-center text-gray-400">
+                      No Image
+                    </div>
+                  )}
 
-                     <button
-                       onClick={() => confirmDelete(book)}
-                       className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                     >
-                       Delete
-                     </button>
-                   </div>
-                 </div>
-               ))
-             )}
-           </div>
+                  <h2 className="text-lg font-semibold text-gray-800">{book.title}</h2>
+                  <p className="text-sm text-gray-600">👤 {book.author}</p>
+                  <p className="text-sm text-gray-600">💰 {book.price.toFixed(2)} €</p>
+                  <p className="text-sm text-gray-600 mt-1 line-clamp-3">
+                    {book.description || "No description."}
+                  </p>
+                  <div className="mt-auto flex justify-end gap-2 pt-4">
+                    <button
+                      onClick={() => confirmDelete(book)}
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </main>
-             {showModal && selectedBook && (
-         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-           <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
-             <h2 className="text-xl font-semibold text-gray-800 mb-4">
-               Confirm Delete
-             </h2>
-             <p className="text-gray-600 mb-6">
-               Are you sure you want to delete <strong>{selectedBook.title}</strong>?
-             </p>
-             <div className="flex justify-end gap-4">
-               <button
-                 onClick={() => setShowModal(false)}
-                 className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
-               >
-                 Cancel
-               </button>
-               <button
-                 onClick={handleDelete}
-                 className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
-               >
-                 Delete
-               </button>
-             </div>
-           </div>
-         </div>
-       )}
+
+      {showModal && selectedBook && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              Confirm Delete
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Are you sure you want to delete <strong>{selectedBook.title}</strong>?
+            </p>
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
