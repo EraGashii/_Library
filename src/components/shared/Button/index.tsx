@@ -2,14 +2,17 @@ import { motion } from "framer-motion";
 import cs from "classnames";
 
 interface Props {
-    text: string;
-    onClick: () => void;
-    variant?: "primary" | "secondary" | "tertiary" | "quaternary";
-    type?: "button" | "submit" | "reset";
-  }
+  text: string;
+  onClick: () => void;
+  className?: string; // Shto këtë linjë
+  variant?: "primary" | "secondary" | "tertiary" | "quaternary";
+  type?: "button" | "submit" | "reset";
+}
+
   
   const Button = (props: Props) => {
-    const { text, onClick, variant = "primary", type = "button" } = props;
+   const { text, onClick, variant = "primary", type = "button", className = "" } = props;
+
   
     const buttonStyles = {
       primary: "bg-yellow-600 hover:bg-yellow-700 text-white",

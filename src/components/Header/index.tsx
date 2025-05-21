@@ -13,8 +13,6 @@ export function Header() {
     { name: "Home", pathName: "/" },
     { name: "About", pathName: "/about" },
     { name: "Contact Us", pathName: "/contact" },
-    { name: "Blogs", pathName: "/blogs" },
-    { name: "News", pathName: "/news" },
   ];
 
   return (
@@ -26,19 +24,19 @@ export function Header() {
         </Link>
 
         {/* Navigation Links */}
-        <div className="flex items-center space-x-8">
-          {navItems.map((item, index) => (
-            <Link
-              key={index}
-              href={item.pathName}
-              className={cs("text-gray-800 hover:text-blue-700 transition", {
-                "underline font-semibold": router.pathname === item.pathName,
-              })}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
+      <div className="flex items-center space-x-8">
+      {navItems.map((item, index) => (
+        <Link key={index} href={item.pathName} passHref>
+          <span
+            className={cs("text-gray-800 hover:text-blue-700 transition", {
+              "underline font-semibold": router.pathname === item.pathName,
+            })}
+          >
+            {item.name}
+          </span>
+        </Link>
+      ))}
+    </div>
 
         {/* Login/Register Buttons */}
         <div className="flex items-center space-x-4">

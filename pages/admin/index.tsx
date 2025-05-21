@@ -25,7 +25,7 @@ export default function AdminDashboard() {
           <a href="/admin" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">🏠 Dashboard</a>
           <a href="/admin/users" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">👥 Përdoruesit</a>
           <a href="/admin/books" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">📘 Book Register</a>
-          <a className="bg-pink-600 px-4 py-2 rounded text-white">👤 Profili</a>
+             <a href="/admin/blogs" className="hover:bg-[#1f2a6d] px-4 py-2 rounded">📝 Blogs</a>
         </nav>
         <button
           onClick={() => signOut({ callbackUrl: "/" })}
