@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Register() {
@@ -201,9 +202,9 @@ export default function Register() {
         >
           <p>
             Keni tashmë një llogari?{" "}
-            <a href="/login" className="text-[#526d88] underline">
+            <Link href="/login" className="text-[#526d88] underline"> 
               Kyçuni këtu
-            </a>
+              </Link>
           </p>
         </motion.section>
       </div>

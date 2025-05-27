@@ -17,8 +17,8 @@ export default function ClientDashboard() {
       <Link href="/Client"><h2 className="text-2xl font-bold mb-8 cursor-pointer hover:text-yellow-300 transition">📚 Bookstore </h2></Link>
         <nav className="flex flex-col gap-4">
         <Link href="/Client/browsebooks" className="hover:bg-gray-800 px-4 py-2 rounded"> 📚 Browse Books </Link>
-          <a className="hover:bg-gray-800 px-4 py-2 rounded">🔖 My Wishlist</a>
-          <a className="hover:bg-gray-800 px-4 py-2 rounded">🛒 My Shopping List</a>
+          <Link className="hover:bg-gray-800 px-4 py-2 rounded" href={""}> 🔖 My Wishlist</Link>
+          <Link className="hover:bg-gray-800 px-4 py-2 rounded" href={""}> 🛒 My Shopping List</Link>
           <Link href="/Client/profile" className="hover:bg-gray-800 px-4 py-2 rounded"> 👤 My Profile </Link>
         </nav>
         <button
