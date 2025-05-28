@@ -87,7 +87,7 @@ export default function AdminBooksPage() {
     <div className="flex min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 text-gray-800">
       {/* Admin Sidebar */}
             <AdminSidebar name={name} />
-            <main className="flex-1 p-10">{/* Your admin content here */}</main>
+          
 
       {/* Main Content */}
       <main className="flex-1 p-10">

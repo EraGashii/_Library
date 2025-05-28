@@ -22,9 +22,7 @@ export default function AdminDashboard() {
     <div className="flex min-h-screen bg-[#f4f6fc] text-gray-800">
       {/* Client Sidebar */}
       <ClientSidebar />
-      <main className="flex-1 p-6">
-        {/* Profile content here */}
-      </main>
+
 
       {/* Main Content */}
       <main className="flex-1 p-10">

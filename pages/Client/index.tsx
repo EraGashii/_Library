@@ -16,10 +16,7 @@ export default function ClientDashboard() {
       {/* Sidebar */}
    
       <ClientSidebar />
-      <main className="flex-1 p-6">
-        {/* Profile content here */}
-      </main>
-
+  
       {/* Main Content */}
       <main className="flex-1 p-8">
         <h1 className="text-4xl font-bold mb-6">Dashboard – Client</h1>

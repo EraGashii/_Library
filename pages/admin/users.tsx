@@ -76,7 +76,7 @@ export default function AdminUsersPage() {
     <div className="flex min-h-screen bg-[#f4f6fc] text-gray-800">
       {/* Admin Sidebar */}
             <AdminSidebar name={name} />
-            <main className="flex-1 p-10">{/* Your admin content here */}</main>
+         
 
       {/* Main content */}
       <main className="flex-1 p-10">
