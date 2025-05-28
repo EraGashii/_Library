@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import AdminSidebar from "./AdminSidebar";
 
 interface Book {
   _id: string;
@@ -84,25 +85,9 @@ export default function AdminBooksPage() {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 text-gray-800">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white flex flex-col py-6 px-4">
-        <h2 className="text-2xl font-bold mb-8">📚 Admin Panel</h2>
-        <nav className="flex flex-col gap-4">
-          <Link href="/admin" className="hover:bg-[#1f2a6d] px-4 py-2 rounded"> 🏠 Dashboard</Link>
-          <Link href="/admin/users" className="hover:bg-[#1f2a6d] px-4 py-2 rounded"> 👥 Përdoruesit</Link>
-          <Link href="/admin/books" className="hover:bg-[#1f2a6d] px-4 py-2 rounded"> 📘 Book Register</Link>
-          <Link href="/admin/blogs" className="hover:bg-[#1f2a6d] px-4 py-2 rounded"> 📝 Blogs</Link>
-        </nav>
-        <button
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className="mt-auto bg-red-600 px-4 py-2 rounded hover:bg-red-700 flex items-center justify-center gap-2"
-        >
-          <span className="rounded-full bg-gray-800 w-6 h-6 flex items-center justify-center text-xs font-bold">
-            {name.charAt(0)}
-          </span>
-          Logout
-        </button>
-      </aside>
+      {/* Admin Sidebar */}
+            <AdminSidebar name={name} />
+            <main className="flex-1 p-10">{/* Your admin content here */}</main>
 
       {/* Main Content */}
       <main className="flex-1 p-10">

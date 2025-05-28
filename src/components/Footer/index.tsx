@@ -1,8 +1,14 @@
 import Link from "next/link";
 import Logo from "@/assets/icons/logo1.svg";
 import { FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 export default function Footer() {
+  const router = useRouter();
+
+  const hiddenRoutes = ["/Client", "/Client/profile", "/Client/shoppingcart", "/Client/wishlist"];
+  if (hiddenRoutes.includes(router.pathname)) return null;
+  
   return (
     <footer className="border-t bg-white text-gray-800">
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">

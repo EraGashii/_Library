@@ -2,6 +2,7 @@ import Head from "next/head";
 import { ReactNode } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useRouter } from "next/router";
 
 
 interface Props{
@@ -10,6 +11,7 @@ interface Props{
 }
 
 export function MainLayout(props: Props){
+
     return <div>
         <Head>
             <title>{props.name}</title>

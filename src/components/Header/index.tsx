@@ -6,7 +6,7 @@ import cs from "classnames";
 export function Header() {
   const router = useRouter();
 
-  const hiddenRoutes = ["/Client", "/Client/profile"];
+  const hiddenRoutes = ["/Client", "/Client/profile", "/Client/shoppingcart", "/Client/wishlist"];
   if (hiddenRoutes.includes(router.pathname)) return null;
 
   const navItems = [

@@ -2,6 +2,7 @@ import { useSession, signOut } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
+import ClientSidebar from "./ClientSidebar";
 
 export default function ClientDashboard() {
   const { data: session, status } = useSession();
@@ -13,24 +14,11 @@ export default function ClientDashboard() {
   return (
     <div className="flex min-h-screen bg-gray-100 text-gray-800">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white flex flex-col py-6 px-4">
-      <Link href="/Client"><h2 className="text-2xl font-bold mb-8 cursor-pointer hover:text-yellow-300 transition">📚 Bookstore </h2></Link>
-        <nav className="flex flex-col gap-4">
-        <Link href="/Client/browsebooks" className="hover:bg-gray-800 px-4 py-2 rounded"> 📚 Browse Books </Link>
-          <Link className="hover:bg-gray-800 px-4 py-2 rounded" href={""}> 🔖 My Wishlist</Link>
-          <Link className="hover:bg-gray-800 px-4 py-2 rounded" href={""}> 🛒 My Shopping List</Link>
-          <Link href="/Client/profile" className="hover:bg-gray-800 px-4 py-2 rounded"> 👤 My Profile </Link>
-        </nav>
-        <button
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className="mt-auto bg-red-600 px-4 py-2 rounded hover:bg-red-700 flex items-center justify-center gap-2"
-        >
-          <span className="rounded-full bg-gray-800 w-6 h-6 flex items-center justify-center text-xs font-bold">
-            {session?.user?.name?.charAt(0) || "N"}
-          </span>
-          Çkyçu
-        </button>
-      </aside>
+   
+      <ClientSidebar />
+      <main className="flex-1 p-6">
+        {/* Profile content here */}
+      </main>
 
       {/* Main Content */}
       <main className="flex-1 p-8">
