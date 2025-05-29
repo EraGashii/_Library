@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "node scripts/migrate.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -14,6 +15,7 @@
     "@mui/material": "^7.0.1",
     "bcryptjs": "^3.0.2",
     "classnames": "^2.5.1",
+    "dotenv": "^16.5.0",
     "formidable": "^3.5.4",
     "framer-motion": "^12.5.0",
     "lucide-react": "^0.487.0",
