@@ -37,7 +37,7 @@ export default function AdminSidebar({ name }: AdminSidebarProps) {
         className="mt-auto bg-red-600 px-4 py-2 rounded hover:bg-red-700 flex items-center justify-center gap-2"
       >
         <span className="rounded-full bg-gray-800 w-6 h-6 flex items-center justify-center text-xs font-bold">
-          {name.charAt(0).toUpperCase()}
+           {name?.charAt(0)?.toUpperCase() || "A"}
         </span>
         Logout
       </button>
