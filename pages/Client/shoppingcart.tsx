@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCartStore } from "../stores/cartStore";
+import { useCartStore } from "../../src/stores/cartStore";
 import ClientSidebar from "./ClientSidebar";
 import Image from "next/image";
 

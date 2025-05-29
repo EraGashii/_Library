@@ -2,8 +2,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ClientSidebar from "./ClientSidebar";
-import { useCartStore } from "../stores/cartStore";
-import { useWishlistStore } from "../stores/wishlistStore"; // ⭐ Import wishlist store
+import { useCartStore } from "../../src/stores/cartStore";
+import { useWishlistStore } from "../../src/stores/wishlistStore"; // ⭐ Import wishlist store
 import Image from "next/image";
 
 interface Book {

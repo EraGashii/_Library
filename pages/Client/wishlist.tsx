@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import ClientSidebar from "./ClientSidebar";
-import { useWishlistStore } from "../stores/wishlistStore";
+import { useWishlistStore } from "../../src/stores/wishlistStore";
 import Image from "next/image";
 
 export default function Wishlist() {
