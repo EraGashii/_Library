@@ -5,10 +5,15 @@ import BlogModel from "api/models/Blog";
 
 import { connectMongo } from "../../lib/mongodb";
 
-import mongoose from "mongoose";
+export interface BlogInput {
+  title: string;
+  body: string;
+  author?: string;
+}
+
 
 // CREATE
-export async function createBlog(data: any) {
+export async function createBlog(data: BlogInput) {
   await connectMongo();
 
   const blogToInsert = {
@@ -35,7 +40,7 @@ export async function getBlog(id: string) {
 }
 
 // UPDATE
-export async function updateBlog(id: string, data: any) {
+export async function updateBlog(id: string, data: Partial<BlogInput>) {
   await connectMongo();
   const blog = await BlogModel.findByIdAndUpdate(id, data, { new: true });
   return blog;

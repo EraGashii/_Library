@@ -4,15 +4,23 @@ import { CircularProgress, Link } from "@mui/material";
 import { motion } from "framer-motion";
 import { Blog } from "api/models/Blog";
 import { useRouter } from "next/router";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { FaFacebook, FaInstagram, FaTelegram, FaTwitter } from "react-icons/fa";
 import AdminSidebar from "../AdminSidebar";
+import Image from "next/image";
 
-
-export interface Post {
+interface Post {
   id: string;
   title: string;
   body: string;
+}
+
+interface BlogSectionProps {
+  title: string;
+  posts: Post[] | null;
+  loading: boolean;
+  hrefBase: string;
+  onDelete: (id: string) => void;
 }
 
 export default function Blogs() {
@@ -78,6 +86,16 @@ export default function Blogs() {
                     animate={{ scale: 1 }}
                     transition={{ duration: 0.5 }}
                   >
+                    <div className="w-full h-48 mb-4 rounded overflow-hidden">
+<Image
+  src={post.coverImage ?? "/fallback.jpg"}
+  alt={post.title}
+  width={384}
+  height={192}
+  className="object-cover w-full h-full"
+/>
+
+                    </div>
                     <h2 className="text-3xl font-serif font-bold mb-4 text-[#526d88] uppercase">
                       {post.title}
                     </h2>
@@ -113,7 +131,6 @@ export default function Blogs() {
           </div>
         )}
 
-        {/* SSG, SSR, ISR */}
         <BlogSection
           title="Static Site Generation (SSG)"
           posts={posts}
@@ -136,7 +153,6 @@ export default function Blogs() {
           onDelete={handleDelete}
         />
 
-        {/* Footer */}
         <footer className="mt-16 text-center text-gray-500 text-sm border-t pt-4">
           © {new Date().getFullYear()} Admin Panel. All rights reserved.
           <div className="flex justify-center gap-4 mt-2 text-lg text-purple-600">
@@ -151,7 +167,7 @@ export default function Blogs() {
   );
 }
 
-function BlogSection({ title, posts, loading, hrefBase, onDelete }: any) {
+function BlogSection({ title, posts, loading, hrefBase, onDelete }: BlogSectionProps) {
   return loading ? (
     <CircularProgress />
   ) : (

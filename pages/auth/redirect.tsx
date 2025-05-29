@@ -2,6 +2,12 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
+interface ExtendedUser {
+  name?: string;
+  email?: string;
+  role?: string;
+}
+
 export default function OAuthRedirect() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -17,7 +23,7 @@ export default function OAuthRedirect() {
     console.log("Session data:", session);
 
     if (status === "authenticated" && session?.user) {
-      const role = (session.user as any).role ?? "user"; // fallback
+   const role = (session.user as ExtendedUser)?.role ?? "user";
       if (role === "admin") {
         router.replace("/admin");
       } else if (role === "user") {

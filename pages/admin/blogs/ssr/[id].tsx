@@ -1,5 +1,11 @@
 // Server-Side Rendering (SSR)
 import { GetServerSideProps } from "next";
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+}
+
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const res = await fetch(
@@ -9,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   return { props: { post } };
 };
 
-export default function Blog({ post }: any) {
+export default function Blog({ post }: { post: Post }) {
   return (
     <div className="pt-12 px-20 flex flex-col items-center justify-center min-h-screen gap-y-20">
       <h1 className="text-4xl font-bold pt-20 pb-6 text-black text-center">
@@ -25,5 +31,6 @@ export default function Blog({ post }: any) {
     </div>
   );
 }
+
 
 Blog.displayName = "Blog | My Application";

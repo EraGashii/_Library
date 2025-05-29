@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
+import Image from "next/image";
 
 type ContactFormInputs = {
   name: string;
@@ -43,11 +44,13 @@ export default function Contact() {
     <div className="relative pt-20 bg-[#f5f4f0] text-[#1a1a1a] min-h-screen flex items-center justify-center px-4 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/uploads/contact-bg.jpg" // vendose imazhin tënd këtu
-          alt="Kontakt Background"
-          className="w-full h-full object-cover blur-sm brightness-75"
-        />
+     <Image
+  src="/uploads/contact-bg.jpg"
+  alt="Kontakt Background"
+  layout="fill"
+  objectFit="cover"
+  className="blur-sm brightness-75"
+/>
       </div>
 
       {/* Contact Form */}

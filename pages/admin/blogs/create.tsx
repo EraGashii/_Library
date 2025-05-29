@@ -12,11 +12,12 @@ export default function CreateBlog() {
   const { post } = useFetch<Blog[]>("/api/blogs");
   const name = session?.user?.name || "Admin";
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    }
-  }, [status]);
+useEffect(() => {
+  if (status === "unauthenticated") {
+    router.push("/login");
+  }
+}, [status, router]);
+
 
   if (status === "loading") return <p>Loading...</p>;
 

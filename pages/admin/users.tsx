@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession} from "next-auth/react";
 import { useRouter } from "next/router";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import Link from "next/link";
 import AdminSidebar from "./AdminSidebar";
 
 interface User {
@@ -29,7 +28,7 @@ export default function AdminUsersPage() {
     } else if (status === "authenticated") {
       fetchUsers();
     }
-  }, [status]);
+  }, [status, router]);
 
   const fetchUsers = async () => {
     const res = await fetch("/api/admin/users");

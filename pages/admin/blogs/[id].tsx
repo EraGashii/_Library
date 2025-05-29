@@ -7,17 +7,20 @@ import Link from "next/link";
 
 export default function UpdateBlog() {
   const router = useRouter();
-  const { id } = router.query;
+  const { is } = router.query;
+  const id = typeof is === "string" ? is : "";
+
   const { data: session, status } = useSession();
   const name = session?.user?.name || "Admin";
-  const [newBlog, setNewBlog] = useState({ title: "", body: "" });
+
+  const [newBlog, setNewBlog] = useState<{ title: string; body: string }>({ title: "", body: "" });
   const { data: existingBlog, loading, put } = useFetch<Blog>(`/api/blogs/${id}`);
 
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
-  }, [status]);
+  }, [status, router]);
 
   useEffect(() => {
     if (existingBlog) {
@@ -38,7 +41,6 @@ export default function UpdateBlog() {
 
   return (
     <div className="flex min-h-screen bg-[#f4f6fc] text-gray-800">
-      {/* Sidebar */}
       <aside className="w-64 bg-gray-900 text-white flex flex-col py-6 px-4">
         <h2 className="text-2xl font-bold mb-8">📚 Admin Panel</h2>
         <nav className="flex flex-col gap-4">
@@ -58,12 +60,9 @@ export default function UpdateBlog() {
         </button>
       </aside>
 
-      {/* Main content */}
       <main className="flex-1 p-10">
         <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow-md">
-          <h2 className="text-black text-2xl font-semibold mb-4">
-            Përditëso Blogun
-          </h2>
+          <h2 className="text-black text-2xl font-semibold mb-4">Përditëso Blogun</h2>
           <input
             type="text"
             placeholder="Titulli"

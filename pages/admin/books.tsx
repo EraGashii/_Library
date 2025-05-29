@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import React, { useEffect, useState, ChangeEvent } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import AdminSidebar from "./AdminSidebar";
+import Image from "next/image";
+
 
 interface Book {
   _id: string;
@@ -17,14 +18,22 @@ interface Book {
 export default function AdminBooksPage() {
   const { data: session, status } = useSession();
   const [books, setBooks] = useState<Book[]>([]);
-  const [form, setForm] = useState<any>({
-    title: "",
-    author: "",
-    price: 0,
-    stock: 0,
-    description: "",
-    coverImage: null,
-  });
+interface BookForm {
+  title: string;
+  author: string;
+  price: number;
+  stock: number;
+  description: string;
+  coverImage: File | null;
+}
+const [form, setForm] = useState<BookForm>({
+  title: "",
+  author: "",
+  price: 0,
+  stock: 0,
+  description: "",
+  coverImage: null,
+});
 
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [showModal, setShowModal] = useState(false);
@@ -34,7 +43,7 @@ export default function AdminBooksPage() {
   useEffect(() => {
     if (status === "unauthenticated") router.push("/login");
     if (status === "authenticated") fetchBooks();
-  }, [status]);
+}, [status, router]);
 
   const fetchBooks = async () => {
     const res = await fetch("/api/services/book");
@@ -42,7 +51,7 @@ export default function AdminBooksPage() {
     setBooks(data);
   };
 
-  const handleAddBook = async (e: any) => {
+const handleAddBook = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("title", form.title);
@@ -50,7 +59,10 @@ export default function AdminBooksPage() {
     formData.append("price", form.price.toString());
     formData.append("stock", form.stock.toString());
     formData.append("description", form.description);
-    formData.append("coverImage", form.coverImage);
+if (form.coverImage) {
+  formData.append("coverImage", form.coverImage);
+}
+
 
     await fetch("/api/services/book", {
       method: "POST",
@@ -159,11 +171,11 @@ export default function AdminBooksPage() {
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setForm({ ...form, coverImage: e.target.files[0] });
-                    }
-                  }}
+               onChange={(e: ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files && e.target.files[0]) {
+    setForm({ ...form, coverImage: e.target.files[0] });
+  }
+}}
                   className="border p-3 rounded-lg w-full"
                 />
               </div>
@@ -186,11 +198,13 @@ export default function AdminBooksPage() {
                 >
                   {book.coverImage ? (
                     <div className="w-full aspect-[3/4] overflow-hidden rounded-md mb-4">
-                      <img
-                        src={book.coverImage}
-                        alt={book.title}
-                        className="w-full h-full object-cover"
-                      />
+                     <Image
+  src={book.coverImage || "/fallback.jpg"}
+  alt={book.title}
+  width={300}
+  height={400}
+  className="object-cover w-full h-full"
+/>
                     </div>
                   ) : (
                     <div className="h-48 w-full bg-gray-100 rounded-md flex items-center justify-center text-gray-400">

@@ -1,8 +1,14 @@
 import { useSession, signOut } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import Link from "next/link";
 import ClientSidebar from "./ClientSidebar";
+import Image from "next/image";
+
+interface User {
+  name?: string;
+  email?: string;
+  role?: string;
+}
 
 export default function ClientDashboard() {
   const { data: session, status } = useSession();
@@ -11,13 +17,12 @@ export default function ClientDashboard() {
     return <p className="text-center mt-10">Loading...</p>;
   }
 
+  const user = session?.user as User;
+
   return (
     <div className="flex min-h-screen bg-gray-100 text-gray-800">
-      {/* Sidebar */}
-   
       <ClientSidebar />
-  
-      {/* Main Content */}
+
       <main className="flex-1 p-8">
         <h1 className="text-4xl font-bold mb-6">Dashboard – Client</h1>
 
@@ -30,65 +35,63 @@ export default function ClientDashboard() {
               View All
             </button>
           </div>
-          <img
-          src="/books-banner.png"
-  alt="Books Promo"
-  className="w-40 h-40 object-contain rounded-lg"
-/>
-
+          <Image
+            src="/books-banner.png"
+            alt="Books Promo"
+            width={160}
+            height={160}
+            className="object-contain rounded-lg"
+          />
         </div>
 
         {/* 📦 Dashboard Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-  {/* Top Selling Book */}
-  <div className="bg-white p-6 rounded-xl shadow-md">
-    <p className="text-gray-600">📖 Top Selling Book</p>
-    <h2 className="text-2xl font-bold">"Atomic Habits"</h2>
-    <p className="text-green-500 text-sm mt-2">+120 sales this week</p>
-  </div>
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <p className="text-gray-600">📖 Top Selling Book</p>
+            <h2 className="text-2xl font-bold">&lsquo;Atomic Habits&rsquo;</h2>
+            <p className="text-green-500 text-sm mt-2">+120 sales this week</p>
+          </div>
 
-  {/* New Reviews */}
-  <div className="bg-white p-6 rounded-xl shadow-md">
-    <p className="text-gray-600">⭐ New Reviews</p>
-    <h2 className="text-2xl font-bold">320</h2>
-    <p className="text-green-500 text-sm mt-2">+10% from last month</p>
-  </div>
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <p className="text-gray-600">⭐ New Reviews</p>
+            <h2 className="text-2xl font-bold">320</h2>
+            <p className="text-green-500 text-sm mt-2">+10% from last month</p>
+          </div>
 
-  {/* Books Added This Week */}
-  <div className="bg-white p-6 rounded-xl shadow-md">
-    <p className="text-gray-600">🆕 Books Added</p>
-    <h2 className="text-2xl font-bold">48</h2>
-    <p className="text-blue-500 text-sm mt-2">Curated by our editors</p>
-  </div>
-</div>
-
+          <div className="bg-white p-6 rounded-xl shadow-md">
+            <p className="text-gray-600">🆕 Books Added</p>
+            <h2 className="text-2xl font-bold">48</h2>
+            <p className="text-blue-500 text-sm mt-2">Curated by our editors</p>
+          </div>
+        </div>
 
         {/* 🎨 Book Inspiration Image */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden mb-10 max-w-4xl mx-auto">
-  <img
-    src="/photoo1.jpg"
-    alt="Book Inspiration"
-    className="w-full h- object-cover"
-  />
-</div>
-
+          <Image
+            src="/photoo1.jpg"
+            alt="Book Inspiration"
+            width={1200}
+            height={400}
+            className="w-full object-cover"
+          />
+        </div>
 
         {/* 👤 Profile Card */}
         <div className="bg-white p-6 rounded-xl shadow-md max-w-xl w-full">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-2xl font-bold text-gray-600">
-              {session?.user?.name?.charAt(0) || "U"}
+              {user.name?.charAt(0) || "U"}
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-800">{session?.user?.name}</h2>
+              <h2 className="text-xl font-semibold text-gray-800">{user.name}</h2>
               <p className="text-sm text-gray-500 flex items-center gap-1">
-                🛡️ Roli: <strong>{(session?.user as any)?.role}</strong>
+                🛡️ Roli: <strong>{user.role}</strong>
               </p>
             </div>
           </div>
           <div className="space-y-2 mb-4">
             <p className="text-gray-600 flex items-center gap-2">
-              📧 <span>Email:</span> <strong>{session?.user?.email}</strong>
+              📧 <span>Email:</span> <strong>{user.email}</strong>
             </p>
             <p className="text-gray-600 flex items-center gap-2">
               🌟 <span>Membership:</span> <strong>Gold</strong>
@@ -128,7 +131,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
-  if ((session.user as any)?.role !== "user") {
+
+  const user = session.user as User;
+  if (user.role !== "user") {
     return {
       redirect: {
         destination: "/unauthorized",
@@ -136,6 +141,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
+
   return {
     props: { session },
   };

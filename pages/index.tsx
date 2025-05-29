@@ -43,11 +43,11 @@ export default function Home() {
       .catch((err) => console.error("Failed to fetch books", err));
   }, []);
 
-  const handleDelete = (id: string) => {
-    if (posts) {
-      setPosts(posts.filter((post) => post._id !== id));
-    }
-  };
+  // const handleDelete = (id: string) => {
+  //   if (posts) {
+  //     setPosts(posts.filter((post) => post._id !== id));
+  //   }
+  // };
 
   return (
     <div className="bg-[#f8f5e4] text-[#333] font-serif">
@@ -148,15 +148,18 @@ export default function Home() {
                 key={book._id}
                 className="bg-white p-6 rounded-xl shadow-md text-left flex flex-col items-center"
               >
-                {book.coverImage && (
-                  <div className="w-full h-96 overflow-hidden rounded-md mb-4">
-                    <img
-                      src={book.coverImage}
-                      alt={book.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
+               {book.coverImage && (
+  <div className="w-full h-96 overflow-hidden rounded-md mb-4">
+    <Image
+      src={book.coverImage}
+      alt={book.title}
+      width={300}
+      height={400}
+      className="w-full h-full object-cover"
+    />
+  </div>
+)}
+
                 <h3 className="text-xl font-semibold text-[#2c2c2c] mb-1">
                   {book.title}
                 </h3>
@@ -187,7 +190,7 @@ export default function Home() {
       ].map((r, i) => (
         <div key={i} className="bg-[#fdfaf0] p-8 rounded-3xl shadow-lg border border-[#eaeaea] relative">
           <div className="absolute -top-4 -left-4 text-5xl text-yellow-400">“</div>
-          <p className="italic text-[#555] mb-6 text-lg leading-relaxed">"{r.review}"</p>
+        <p className="italic text-[#555] mb-6 text-lg leading-relaxed">&quot;{r.review}&quot;</p>
           <div className="text-right font-bold text-[#3f5267]">— {r.name}</div>
         </div>
       ))}
@@ -205,7 +208,7 @@ export default function Home() {
       </span>
       <h2 className="text-4xl font-bold text-[#3f5267] mb-4">Oferta e Javës</h2>
       <p className="text-[#2c2c2c] mb-6 text-lg">
-        Bli 2 libra dhe përfito të tretin <strong className="text-[#c93]">FALAS</strong>!
+      Bli 2 libra dhe përfito të tretin <strong className="text-[#c93]">FALAS</strong>!
         Mos e humb, oferta vlen vetëm këtë javë.
       </p>
       <Button text="Përfito Ofertën" onClick={() => router.push("/login")} />

@@ -9,19 +9,22 @@ function useFetch<T>(url: string) {
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
-      .then((result) => {
+      .then((result: T) => {
         setData(result);
         setLoading(false);
       })
-      .catch((err) => {
-        setError(err.message || "GET request failed");
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("GET request failed");
+        }
         setLoading(false);
       });
   }, [url]);
 
-
   // POST
-async function post<D>(payload: D) {
+  async function post<D>(payload: D): Promise<void> {
     setLoading(true);
     setError(null);
     try {
@@ -30,16 +33,21 @@ async function post<D>(payload: D) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const result = await res.json();
+      const result: T = await res.json();
       setData(result);
-    } catch (err: any) {
-      setError(err.message || "POST failed");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("POST failed");
+      }
     } finally {
       setLoading(false);
     }
   }
+
   // PUT
-async function put<D>(payload: D) {
+  async function put<D>(payload: D): Promise<T | undefined> {
     setLoading(true);
     setError(null);
     try {
@@ -48,34 +56,43 @@ async function put<D>(payload: D) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const result = await res.json();
+      const result: T = await res.json();
       setData(result);
       return result;
-    } catch (err: any) {
-      setError(err.message || "PUT failed");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("PUT failed");
+      }
     } finally {
       setLoading(false);
     }
   }
-// DELETE
-async function remove(customUrl?: string) {
+
+  // DELETE
+  async function remove(customUrl?: string): Promise<T | undefined> {
     setLoading(true);
     setError(null);
     try {
       const res = await fetch(customUrl || url, {
         method: "DELETE",
       });
-      const result = await res.json();
+      const result: T = await res.json();
       setData(result);
       return result;
-    } catch (err: any) {
-      setError(err.message || "DELETE failed");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("DELETE failed");
+      }
     } finally {
       setLoading(false);
     }
   }
-    
-  return { data, loading ,error,put,post,remove};
+
+  return { data, loading, error, post, put, remove };
 }
 
 export default useFetch;

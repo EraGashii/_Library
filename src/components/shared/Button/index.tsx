@@ -26,7 +26,8 @@ interface Props {
         type={type}
         className={cs(
           "px-6 py-3 rounded-full font-medium transition-all",
-          buttonStyles[variant]
+          buttonStyles[variant],
+           className
         )}
         onClick={onClick}
         whileHover={{ scale: 1.05 }}

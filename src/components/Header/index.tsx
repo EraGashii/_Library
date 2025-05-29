@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo from "@/assets/icons/logo1.svg";
 import cs from "classnames";
+import Image from "next/image";
 
 export function Header() {
   const router = useRouter();
@@ -19,9 +20,16 @@ export function Header() {
     <div className="py-2 px-6 fixed z-50 bg-white border-b w-full shadow-sm">
       <div className="container m-auto flex items-center justify-between">
         {/* Logo */}
-        <Link href="/">
-          <img className="h-10" src={Logo.src} alt="Logo" />
-        </Link>
+      <Link href="/" className="block w-fit">
+  <Image
+    src={Logo.src}
+    alt="Logo"
+    width={120}
+    height={40}
+    className="h-10 w-auto"
+    priority
+  />
+</Link>
 
         {/* Navigation Links */}
       <div className="flex items-center space-x-8">

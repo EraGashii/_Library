@@ -5,8 +5,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { connectMongo } from "lib/mongodb";
 import User from "models/user";
 import bcrypt from "bcryptjs";
+import { DefaultUser } from "next-auth";
 
-
+interface ExtendedUser extends DefaultUser {
+  role?: string;
+}
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -65,7 +68,8 @@ export const authOptions: NextAuthOptions = {
           }
     
           // 👇 this is the key: make sure it's attached to the user object
-          (user as any).role = existingUser.role || "user";
+      (user as ExtendedUser).role = existingUser.role || "user";
+
         }
     
         return true;

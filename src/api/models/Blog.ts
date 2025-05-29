@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface Blog extends Document {
+  coverImage: string;
   _id: string;   
   title: string;
   body: string;

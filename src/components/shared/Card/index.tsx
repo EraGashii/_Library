@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 interface Props {
-    icon: any;
+ icon: React.ElementType;
     title: string;
     description: string;
   }

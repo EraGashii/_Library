@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ClientSidebar from "./ClientSidebar";
 import { useCartStore } from "../stores/cartStore";
 import { useWishlistStore } from "../stores/wishlistStore"; // ⭐ Import wishlist store
+import Image from "next/image";
 
 interface Book {
   _id: string;
@@ -15,7 +16,7 @@ interface Book {
 }
 
 export default function BrowseBooks() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   const [books, setBooks] = useState<Book[]>([]);
@@ -138,11 +139,14 @@ export default function BrowseBooks() {
                   </button>
 
                   <div className="w-full aspect-[3/4] bg-white rounded-t-lg overflow-hidden flex items-center justify-center">
-                    <img
-                      src={book.coverImage}
-                      alt={book.title}
-                      className="max-w-full max-h-full object-contain"
-                    />
+                   <Image
+  src={book.coverImage || "/fallback.jpg"}
+  alt={book.title}
+  width={300}
+  height={400}
+  className="object-cover w-full h-full"
+/>
+
                   </div>
 
                   <div className="p-4 flex flex-col flex-1 justify-between">

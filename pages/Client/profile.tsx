@@ -1,20 +1,26 @@
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FaFacebook, FaInstagram, FaTwitter, FaTelegram, FaEdit } from "react-icons/fa";
-import Link from "next/link";
 import ClientSidebar from "./ClientSidebar";
+import Image from "next/image";
 
+  interface User {
+  name?: string;
+  email?: string;
+  role?: string;
+}
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const name = session?.user?.name || "User";
-
+const user = session?.user as User;
   useEffect(() => {
     if (status === "unauthenticated") {
       router.replace("/login");
     }
-  }, [status]);
+  }, [status, router]);
+
 
   if (status === "loading") return <p>Loading...</p>;
 
@@ -23,7 +29,6 @@ export default function AdminDashboard() {
       {/* Client Sidebar */}
       <ClientSidebar />
 
-
       {/* Main Content */}
       <main className="flex-1 p-10">
         <div className="bg-white rounded-xl shadow-md p-6 mb-10 flex items-center justify-between">
@@ -31,11 +36,14 @@ export default function AdminDashboard() {
             <h1 className="text-2xl font-bold">Mirësevini, {name}!</h1>
             <p className="text-gray-500 mt-1">Ju jeni kyçur si përdorues i thjeshtë. 🎓</p>
           </div>
-          <img
-            src="/books-banner.png"
-            alt="Books"
-            className="w-32 h-32 object-contain"
-          />
+          <div className="w-32 h-32 relative">
+            <Image
+              src="/books-banner.png"
+              alt="Books"
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
         </div>
 
         {/* Admin Profile Card */}
@@ -60,7 +68,7 @@ export default function AdminDashboard() {
             <p>📍 Lokacioni: <strong>Prishtinë, Kosovë</strong></p>
             <p>🎂 Datëlindja: <strong>08.04.1999</strong></p>
             <p>📧 Email: <strong>{session?.user?.email}</strong></p>
-            <p>🛡️ Roli: <strong>{(session?.user as any)?.role}</strong></p>
+            <p>🛡️ Roli: <strong>{user.role}</strong></p>
             <p>📞 Tel: <strong>+383 44 123 456</strong></p>
 
             {/* Stats */}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Logo from "@/assets/icons/logo1.svg";
 import { FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function Footer() {
   const router = useRouter();
@@ -14,9 +15,16 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Kolona 1 - Logo & Newsletter */}
         <div>
-          <Link href="/">
-            <img src={Logo.src} alt="Logo" className="h-12 mb-4" />
-          </Link>
+       <Link href="/" className="block w-fit">
+  <Image
+    src={Logo.src}
+    alt="Logo"
+    width={120}
+    height={40}
+    className="mb-4"
+  />
+</Link>
+
           <p className="text-sm mb-2">Për të qëndruar i informuar</p>
           <p className="text-lg font-bold mb-2">Abonohu në newsletter-in tonë.</p>
           <form className="flex">
