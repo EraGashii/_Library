@@ -6,20 +6,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === "GET") {
     try {
       const blogs = await getBlogs();
-      res.status(200).json(blogs);
+      return res.status(200).json(blogs); // ✅ shto return
     } catch (error) {
-      res.status(500).json(error);
+      return res.status(500).json(error); // ✅
     }
   }
 
   if (req.method === "POST") {
     try {
       const blog = await createBlog(req.body);
-      res.status(201).json(blog);
+      return res.status(201).json(blog); // ✅
     } catch (error) {
-      res.status(500).json(error);
+      return res.status(500).json(error); // ✅
     }
   }
 
-  res.status(405).json({ message: "Method Not Allowed" });
+  return res.status(405).json({ message: "Method Not Allowed" }); // ✅
 }
+

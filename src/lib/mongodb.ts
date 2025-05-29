@@ -7,6 +7,8 @@ if (!MONGODB_URI) {
 }
 
 export async function connectMongo() {
+  console.log("Mongo URI:", process.env.MONGODB_URI);
+
   if (mongoose.connection.readyState >= 1) return;
   await mongoose.connect(MONGODB_URI);
 }
