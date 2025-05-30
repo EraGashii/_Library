@@ -7,8 +7,10 @@ import Image from "next/image";
 export function Header() {
   const router = useRouter();
 
-  const hiddenRoutes = ["/client", "/client/profile", "/client/shoppingcart", "/client/wishlist"];
-  if (hiddenRoutes.includes(router.pathname)) return null;
+ const hiddenRoutes = ["/client", "/client/profile", "/client/shoppingcart", "/client/wishlist", "/client/browsebooks"];
+const path = router.pathname.toLowerCase(); // 👈 gjithmonë lowercase
+
+if (hiddenRoutes.includes(path)) return null;
 
   const navItems = [
     { name: "Home", pathName: "/" },
