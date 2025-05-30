@@ -1,42 +1,43 @@
-
-
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  console.log("🔐 TOKEN:", token);
+  console.log("🍪 COOKIE:", req.cookies.get("next-auth.session-token")?.value);
 
   const { pathname } = req.nextUrl;
+  const lowerPath = pathname.toLowerCase();
 
-  // Lejo rruget publike pa autentifikim
-  const publicPaths = [
-    "/",
-    "/home",
-    "/contact",
-    "/login",
-    "/register",
-    "/api/auth",
-  ];
+  const publicPaths = ["/", "/home", "/contact", "/login", "/register", "/api/auth"];
+  const isPublic = publicPaths.some((path) => lowerPath === path || lowerPath.startsWith(path));
 
-  const isPublic = publicPaths.some((path) =>
-    pathname === path || pathname.startsWith(path)
-  );
+  if (isPublic) return NextResponse.next();
+  if (!token) return NextResponse.redirect(new URL("/login", req.url));
 
-  if (isPublic) {
-    return NextResponse.next();
-  }
-
-  // Nëse nuk ka token dhe tenton të hyjë në faqe të mbrojtur
-  if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
-
-  // Nëse është faqe admini dhe useri nuk është admin
-  if (pathname.startsWith("/admin") && token.role !== "admin") {
+  if (lowerPath.startsWith("/admin") && token.role !== "admin") {
     return NextResponse.redirect(new URL("/unauthorized", req.url));
   }
 
- 
+  if (lowerPath.startsWith("/client") && token.role !== "user") {
+    return NextResponse.redirect(new URL("/unauthorized", req.url));
+  }
+
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: [
+    "/client/:path*",
+    "/client/:path*",
+    "/admin/:path*",
+    "/admin",
+    "/client",
+    "/client"
+  ],
+};

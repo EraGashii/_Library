@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function Footer() {
   const router = useRouter();
 
-  const hiddenRoutes = ["/Client", "/Client/profile", "/Client/shoppingcart", "/Client/wishlist"];
+  const hiddenRoutes = ["/client", "/client/profile", "/client/shoppingcart", "/client/wishlist"];
   if (hiddenRoutes.includes(router.pathname)) return null;
   
   return (

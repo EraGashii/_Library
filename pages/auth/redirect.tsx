@@ -27,7 +27,7 @@ export default function OAuthRedirect() {
       if (role === "admin") {
         router.replace("/admin");
       } else if (role === "user") {
-        router.replace("/Client");
+        router.replace("/client");
       } else {
         router.replace("/unauthorized");
       }

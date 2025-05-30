@@ -1,40 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 📚 LibraryyApp – Online Bookstore Platform
 
-## Getting Started
+[LibraryyApp](https://libraryyapp.vercel.app) is a modern online bookstore platform built with Next.js, TailwindCSS, and MongoDB.  
+Its goal is to provide users with a simple and intuitive experience for exploring recommended books, reading blog articles, and contacting the store.
 
-First, run the development server:
+---
 
-```bash
+## 🚀 Main Features
+
+- Hero and About sections for platform introduction  
+- Recommended Books and Weekly Offers  
+- Blog section manageable by the admin panel  
+- Contact form for user inquiries  
+- Authentication with Google, Facebook, and credentials (NextAuth.js)  
+- Admin dashboard to manage blogs and users  
+- Role-based access control for admin and clients  
+
+---
+
+## 📦 Technologies & Dependencies
+
+This project is built using the following technologies and libraries:
+
+- **Next.js 15** – React framework for fast and scalable applications  
+- **React 19** – Library for building user interfaces  
+- **Tailwind CSS 4** – Utility-first CSS framework  
+- **MUI (Material UI 7)** – Advanced UI component library  
+- **NextAuth.js** – Authentication with Google, Facebook, and credentials  
+- **Mongoose 8** – ODM for MongoDB  
+- **Zustand** – Lightweight state management  
+- **Framer Motion** – Powerful animations for React  
+- **React Hook Form** – Form state and validation management  
+- **React Hot Toast** – Beautiful and fast toast notifications  
+- **Lucide React & React Icons** – Icon libraries  
+- **bcryptjs** – Password hashing  
+- **dotenv** – Environment variable management  
+- **formidable** – File upload handling  
+
+### 🧪 Development & Testing
+
+- **Jest** and **Testing Library** – Unit testing for React components  
+- **ESLint** – Code style and quality enforcement  
+- **TypeScript** – Static typing (optional)  
+- **PostCSS** – Plugin support for Tailwind  
+
+---
+
+## 🛠️ Installation Guide
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/EraGashii/_Library.git
+   cd nextjs-dashboard
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open http://localhost:3000 in your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔗 Live Demo & Screenshots
+🌐 Live Application:
+https://libraryyapp.vercel.app
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 📸 Screenshots
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+**✅ Admin Panel**  
+![Admin Panel](./public/screenshots/admin.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+**🏠 Homepage**  
+![Homepage](./public/screenshots/homepage.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**👤 Client Panel**  
+![Client Panel](./public/screenshots/blog.png)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+👥 Project Contributors
+Name	Role
+Era Gashi	Frontend, Authentication, Dashboard, Docs
+Driard Shala	Frontend, Authentication, Dashboard, Docs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.

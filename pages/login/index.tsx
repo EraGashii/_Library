@@ -31,7 +31,7 @@ export default function Login() {
       if (role === "admin") {
         router.push("/admin");
       } else if (role === "user") {
-        router.push("/Client");
+        router.push("/client");
       } else {
         router.push("/unauthorized");
       }

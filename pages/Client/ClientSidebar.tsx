@@ -10,22 +10,22 @@ export default function ClientSidebar() {
 
   return (
     <aside className="w-64 bg-gray-900 text-white flex flex-col py-6 px-4">
-      <Link href="/Client">
+      <Link href="/client">
         <h2 className="text-2xl font-bold mb-8 cursor-pointer hover:text-yellow-300 transition">
           📚 Bookstore
         </h2>
       </Link>
       <nav className="flex flex-col gap-4">
-        <Link href="/Client/browsebooks" className="hover:bg-gray-800 px-4 py-2 rounded">
+        <Link href="/client/browsebooks" className="hover:bg-gray-800 px-4 py-2 rounded">
           📚 Browse Books
         </Link>
-        <Link href="/Client/wishlist" className="hover:bg-gray-800 px-4 py-2 rounded">
+        <Link href="/client/wishlist" className="hover:bg-gray-800 px-4 py-2 rounded">
           🔖 My Wishlist
         </Link>
-        <Link href="/Client/shoppingcart" className="hover:bg-gray-800 px-4 py-2 rounded">
+        <Link href="/client/shoppingcart" className="hover:bg-gray-800 px-4 py-2 rounded">
           🛒 My Shopping List
         </Link>
-        <Link href="/Client/profile" className="hover:bg-gray-800 px-4 py-2 rounded">
+        <Link href="/client/profile" className="hover:bg-gray-800 px-4 py-2 rounded">
           👤 My Profile
         </Link>
       </nav>

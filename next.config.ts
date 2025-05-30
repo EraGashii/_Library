@@ -1,12 +1,8 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  reactStrictMode: true,
-  // hiqe këtë pjesë:
-  // env: {
-  //   MONGODB_URI: "mongodb://localhost:27017/myblogapp",
-  // },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    serverActions: {},
+  },
 };
 
 export default nextConfig;
-  
