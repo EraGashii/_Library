@@ -4,21 +4,20 @@ import Card from "@/components/shared/Card";
 import { Rocket } from "lucide-react";
 import '@testing-library/jest-dom';
 
-
 describe("BlogCard", () => {
-  it("duhet të shfaqë titullin dhe përmbajtjen e blogut", () => {
-    render(
-      <Card
-        icon={Rocket}
-        title="Titulli i Blogut"
-        description="Përmbajtja e blogut këtu."
-      />
-    );
+  it("shfaq titullin dhe përshkrimin", () => {
+    render(<Card icon={Rocket} title="Test" description="Përshkrimi" />);
+    expect(screen.getByText("Test")).toBeInTheDocument();
+    expect(screen.getByText("Përshkrimi")).toBeInTheDocument();
+  });
 
-    // Kontrollo që titulli të jetë në dokument
-    expect(screen.getByText("Titulli i Blogut")).toBeInTheDocument();
+  it("shfaq ikonën", () => {
+    render(<Card icon={() => <Rocket data-testid="card-icon" />} title="Test" description="ikona" />);
+    expect(screen.getByTestId("card-icon")).toBeInTheDocument();
+  });
 
-    // Kontrollo që përmbajtja të jetë në dokument
-    expect(screen.getByText("Përmbajtja e blogut këtu.")).toBeInTheDocument();
+  it("shfaq përshkrim bosh nëse mungon", () => {
+    render(<Card icon={Rocket} title="Test" description="" />);
+    expect(screen.getByText("")).toBeInTheDocument();
   });
 });

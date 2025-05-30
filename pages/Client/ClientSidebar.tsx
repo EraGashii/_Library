@@ -8,7 +8,7 @@ export default function ClientSidebar() {
 
   const name = session?.user?.name || "N";
 
-  return (
+  return (  
     <aside className="w-64 bg-gray-900 text-white flex flex-col py-6 px-4">
       <Link href="/client">
         <h2 className="text-2xl font-bold mb-8 cursor-pointer hover:text-yellow-300 transition">
