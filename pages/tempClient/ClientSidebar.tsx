@@ -16,7 +16,7 @@ export default function ClientSidebar() {
         </h2>
       </Link>
       <nav className="flex flex-col gap-4">
-        <Link href="/client/browsebooks" className="hover:bg-gray-800 px-4 py-2 rounded">
+        <Link href="/Client/browsebooks" className="hover:bg-gray-800 px-4 py-2 rounded">
           📚 Browse Books
         </Link>
         <Link href="/client/wishlist" className="hover:bg-gray-800 px-4 py-2 rounded">

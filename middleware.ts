@@ -32,12 +32,14 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/client/:path*",
-    "/client/:path*",
-    "/admin/:path*",
-    "/admin",
-    "/client",
-    "/client"
-  ],
+ matcher: [
+  "/client/:path*",
+  "/Client/:path*",
+  "/admin/:path*",
+  "/Admin/:path*",
+  "/client",
+  "/Client",
+  "/admin",
+  "/Admin"
+],
 };
