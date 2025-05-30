@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useCartStore } from "../../src/stores/cartStore";
 import ClientSidebar from "./ClientSidebar";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function ShoppingCart() {
   const [hasMounted, setHasMounted] = useState(false);
   const { cart, removeFromCart } = useCartStore();
+  const router = useRouter();
 
   useEffect(() => {
     setHasMounted(true);
@@ -58,6 +60,16 @@ export default function ShoppingCart() {
                 </button>
               </div>
             ))}
+
+            {/* Proceed to Checkout button */}
+            <div className="text-right mt-8">
+              <button
+                onClick={() => router.push("/checkout")}
+                className="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition"
+              >
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
         )}
       </main>
