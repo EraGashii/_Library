@@ -13,7 +13,9 @@ type CartStore = {
   cart: Book[];
   addToCart: (book: Book) => void;
   removeFromCart: (id: string) => void;
+  clearCart: () => void; // ✅ Shto këtë këtu
 };
+
 
 export const useCartStore = create<CartStore>()(
   persist(
@@ -27,6 +29,7 @@ export const useCartStore = create<CartStore>()(
         set((state) => ({
           cart: state.cart.filter((book) => book.id !== id),
         })),
+        clearCart: () => set({ cart: [] }),
     }),
     {
       name: "cart-storage", // emri i key-t në localStorage

@@ -64,7 +64,7 @@ export default function ShoppingCart() {
             {/* Proceed to Checkout button */}
             <div className="text-right mt-8">
               <button
-                onClick={() => router.push("/checkout")}
+                onClick={() => router.push("/client/checkout")}
                 className="bg-green-600 text-white px-6 py-3 rounded-lg shadow hover:bg-green-700 transition"
               >
                 Proceed to Checkout
