@@ -31,6 +31,12 @@ export default function AdminSidebar({ name }: AdminSidebarProps) {
         >
           📝 Blogs
         </Link>
+          <Link
+          href="/admin/orders"
+          className="hover:bg-[#1f2a6d] px-4 py-2 rounded"
+        >
+           📦  Menaxhimi i Porosive
+        </Link>
       </nav>
       <button
         onClick={() => signOut({ callbackUrl: "/" })}

@@ -1,11 +1,18 @@
-// client/checkout.tsx
+// pages/client/checkout.tsx
 import ClientSidebar from "./ClientSidebar";
 import { useCartStore } from "../../src/stores/cartStore";
+import { useOrderStore } from "../../src/stores/orderStore";
+import type { Order } from "../../src/stores/orderStore";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CheckoutPage() {
   const [mounted, setMounted] = useState(false);
   const { cart, clearCart } = useCartStore();
+  const { addOrder } = useOrderStore();
+  const { data: session } = useSession();
+  const [paymentMethod, setPaymentMethod] = useState("Credit Card");
 
   useEffect(() => {
     setMounted(true);
@@ -16,8 +23,21 @@ export default function CheckoutPage() {
   const total = cart.reduce((acc, book) => acc + book.price, 0);
 
   const handleCheckout = () => {
-    alert("Checkout complete! ✅");
+    const order: Order = {
+      id: uuidv4(),
+      user: {
+        name: session?.user?.name || "Anonymous",
+        email: session?.user?.email || "unknown@example.com",
+      },
+      items: cart,
+      status: "pending",
+      createdAt: new Date(),
+      paymentMethod,
+    };
+
+    addOrder(order);
     clearCart();
+    alert("✅ Porosia u pranua me sukses dhe është duke u shqyrtuar!");
   };
 
   return (
@@ -54,7 +74,11 @@ export default function CheckoutPage() {
 
         <div className="mb-4">
           <label className="block mb-1 font-semibold">💳 Payment Method</label>
-          <select className="w-full p-2 border rounded">
+          <select
+            className="w-full p-2 border rounded"
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value)}
+          >
             <option>Credit Card</option>
             <option>PayPal</option>
             <option>Bank Transfer</option>
